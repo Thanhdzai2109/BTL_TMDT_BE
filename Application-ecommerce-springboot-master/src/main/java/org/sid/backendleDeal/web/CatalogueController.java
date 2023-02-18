@@ -1,10 +1,14 @@
 package org.sid.backendleDeal.web;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+
 
 import org.sid.backendleDeal.dao.CategoryRepository;
 import org.sid.backendleDeal.dao.ClientRepository;
@@ -28,8 +32,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.apache.commons.io.IOUtils;
 import net.bytebuddy.dynamic.DynamicType.Builder.MethodDefinition.ImplementationDefinition.Optional;
+
+
 @CrossOrigin("*")
 @RestController
 public class CatalogueController {
@@ -132,15 +138,22 @@ public class CatalogueController {
 	}  
 	/* Web api REST Get getlesPhotosdesoffres*/
 	@GetMapping(path="/photoOffres/{id}",produces = MediaType.IMAGE_PNG_VALUE)
-      
-	public byte[] getPhoto(@PathVariable("id") Long id) throws IOException{
-    	  
-		Offres o=offresRepository.findById(id).get();
-		File serverFile = new File("C:\\Users\\Boubaker\\Offress\\"+o.getPhotoName());
-        System.out.println("serverFile : " + serverFile);        
-        return Files.readAllBytes(serverFile.toPath());
-		
-    }
+	public byte[] getPhoto(@PathVariable("id") Long id) throws IOException {
+
+	Offres o = offresRepository.findById(id).get();
+//    	File serverFile = new File("C:\\Users\\Boubaker\\Offress\\"+o.getPhotoName());
+//        System.out.println("serverFile : " + serverFile);
+//        return Files.readAllBytes(serverFile.toPath());
+		try {
+			File serverFile = new File("C:\\Users\\ThanhNT\\Offress\\"+o.getPhotoName());
+			InputStream in = new FileInputStream(serverFile);
+			byte[] imageBytes = IOUtils.toByteArray(in);
+			in.close();
+			return imageBytes;
+		} catch (IOException e) {
+			return null;
+		}
+	}
 	/* Web api REST Post UploadPhotoPourUnOffre dans un Dosier Offres et Enregistrer le nom du Photo Avec Spring DataRest */
 	@PostMapping(path = "/uploadPhoto/{id}")
 	public void uploadPhoto(MultipartFile file, @PathVariable Long id) throws Exception {
