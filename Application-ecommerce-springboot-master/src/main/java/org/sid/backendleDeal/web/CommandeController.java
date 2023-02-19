@@ -123,6 +123,8 @@ public class CommandeController {
 	@RequestMapping(value="/commandes/{id}",method=RequestMethod.PUT) 
 	public Commande save(@PathVariable Long id,  @RequestBody Commande c){
 	    c.setId(id);
+	    c.setEtatcommande("Hoàn thành");
+	    c.setDateNhan(new Date());
 		return commandeRepository.save(c);
 	}
 

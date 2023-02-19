@@ -21,7 +21,7 @@ public class Commande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date;
-
+    private Date dateNhan;
 	@OneToMany (mappedBy = "commande")
 	private Collection<AchatItem> achatsItems;
 	@ManyToOne 

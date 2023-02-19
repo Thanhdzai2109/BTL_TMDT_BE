@@ -23,7 +23,7 @@ public class CommandeService {
 	public Commande commander(Commande commande) {
 
 		commande.setDate(new Date());
-		commande.setEtatcommande("Non Payé");
+		commande.setEtatcommande("Đang giao");
 		commandeRepository.save(commande);
 
 		for (AchatItem achat : commande.getAchatsItems()) {
