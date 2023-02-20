@@ -33,6 +33,8 @@ public class Offres implements Serializable{
 	
 	@ManyToOne
 	private Category category;
+	@ManyToOne
+	private Shop shop;
 	
 	private int quantity=1;
 	

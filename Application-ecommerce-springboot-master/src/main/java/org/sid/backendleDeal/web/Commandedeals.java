@@ -16,9 +16,6 @@ public class Commandedeals {
 	
 	@Autowired
 	private AchatItemRepository achatitemRepository;
-
-	
-	
 	@GetMapping(value = "/listcommandesdeals")
 	public List<AchatItem> Listcommandes() {
 		return achatitemRepository.findAll();
