@@ -118,8 +118,12 @@ public class CatalogueController {
 	public Category savecat(@RequestBody Category c){
 		 return catRepository.save(c);
 	}
-	
-	
+    @PostMapping (value = "/SearchData")
+	public List<Offres>FindCate(@RequestBody Offres offres){
+		if(offres.getName()==null){
+			return offresRepository.findAll();
+		}return offresRepository.findData(offres.getName());
+	}
 	
 	/*Web api REST POST ajouter un Category*/
 	@PostMapping(value="/listCategories")
